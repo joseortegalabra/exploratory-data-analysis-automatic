@@ -1,0 +1,124 @@
+{
+  "config_report":{
+    "name_report": "dataset-stock-prices",
+    "name_data_pkl": "stock_prices.pkl",
+    "target": "VOO",
+    "list_features": ["CMPC.SN", "CHILE.SN", "COPEC.SN", "ANDINA-B.SN", "MSFT", "AAPL", "GOOG", "TSLA","QQQ"],
+    "number_columns": 2
+  },
+
+
+  "reports_to_show":{
+    "ydata_profiling": true,
+    "univariate_analysis": true,
+    "bivariate_analysis": true,
+    "segmentation_analysis": true,
+    "categotical_analysis":true
+
+  },
+
+
+  "ydata_profiling":{
+    "minimal":true
+  },
+
+  
+  "univariate_analysis":{
+    "zoom_tendency":{
+      "start_date": "2022-01-01",
+      "end_date": "2024-01-01"
+    },
+
+    "smooth_data":{
+      "moving_average":{
+        "window": 5
+      },
+      "weighted_moving_average":{
+        "weights":[0.05, 0.10, 0.15, 0.3, 0.4]
+      },
+      "exponential_moving_average":{
+        "alpha": 0.1
+      }
+    },
+
+    "acf_pacf":{
+      "lags": 30
+    }
+  },
+
+
+  "bivariate_analysis":{
+    "correlations":{
+      "threshold_corr_all_features": null,
+      "threshold_corr_target": 0.01
+    },
+
+    "scatter_plot":{
+      "individual_scatter":{
+        "marginal": true
+      }
+    },
+
+    "correlations_features_lagged_target":{
+      "lags":30
+    },
+
+    "parallel":{
+      "list_features":["CHILE.SN", "MSFT", "AAPL", "GOOG"]
+    }
+  },
+
+
+  "segmentation_analysis":{
+    "segments":[
+      {"type":"custom", "var_segment": "VOO", "interval_segment": [300, 360, 400, 420], "labels_segment": ["S&P500 low price", "S&P500 medium price", "S&P500 high price"]}
+    ],
+
+    "correlations":{
+      "threshold_corr_all_features": null,
+      "threshold_corr_target": 0.01
+    },
+
+    "scatter_plot":{
+      "individual_scatter":{
+        "marginal": true
+      }
+    },
+
+    "parallel_target_discrete":{
+        "show":true,
+        "list_features":["CHILE.SN", "MSFT", "AAPL", "GOOG"]
+      }
+    },
+
+
+  "categorical_analysis":{
+    "percentile_transform":{
+      "categories_features":{
+        "features":["CMPC.SN", "CHILE.SN", "COPEC.SN", "ANDINA-B.SN", "MSFT", "AAPL", "GOOG", "TSLA","QQQ"],
+        "percentile":["quartile", "quartile", "quartile", "quartile", "quartile", "quartile", "quartile", "quartile", "quartile"]
+      },
+      "categories_target":{
+        "target":["VOO"],
+        "percentile":["quartile"]
+      }
+    },
+
+    "crosstab_freq_pair_features":{
+      "freq_normalized": true
+    },
+
+    "crosstab_freq_target_feature":{
+      "freq_normalized": true
+    },
+
+    "heatmap_multiple_features_vs_target_continuous":{
+      "aggregation_target": ["mean", "std"]
+    },
+
+    "parallel":{
+      "list_features":["CHILE.SN", "MSFT", "AAPL", "GOOG"]
+    }
+  }
+
+}
